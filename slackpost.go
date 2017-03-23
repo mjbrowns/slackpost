@@ -21,7 +21,7 @@
 package main
 
 import "github.com/mjbrowns/slackpost/cmd"
-#import "slackpost/cmd"
+//import "slackpost/cmd"
 
 func main() {
 	cmd.Execute()
