@@ -33,6 +33,7 @@ var attachCmd = &cobra.Command{
 	Use:   "attach <text>",
 	Short: "Attach a text string to the message",
 	Long: `Attach a text string to the message.
+	
 	This function will add a string as an attachment to the message.
 	There can be unlimited attachments to a message, and each attachment has many
 	options available to customize how the attachment will appear.

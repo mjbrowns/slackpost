@@ -27,9 +27,10 @@ import (
 
 // addfieldCmd represents the addfield command
 var addfieldCmd = &cobra.Command{
-	Use:   "addfield",
+	Use:   "addfield <title> <value>",
 	Short: "Add fields to the current attachment",
 	Long: `Add fields to the current attachment.
+
 	Message atachments can have multiple fields (see slack message documentation).
 	This function adds a few field to the most recently added attachment.`,
 	RunE: do_addfield,

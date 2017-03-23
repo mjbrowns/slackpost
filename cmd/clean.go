@@ -32,6 +32,7 @@ var cleanCmd = &cobra.Command{
 	Use:   "clean",
 	Short: "Cleans up the message object",
 	Long: `Cleans up the temporary file(s) used to create the message object.
+  
 	This function is normally performed automatically after sending the object,
 	but in some cases you may need to clean up the message manually.`,
 	Run: func(cmd *cobra.Command, args []string) {
