@@ -34,6 +34,8 @@ a message object containing all availabl slack incoming webhook API capabilities
 |  -v | --verbose  | Enable verbose messages
 |  -w | --workdir |    working directory to use to store message objects
 
+---
+
 ### init
 
 Initializes the message object
@@ -60,6 +62,8 @@ Initializes the message object
 ```
   slackpost init https://slack.foo "This is my message"
 ```
+
+---
 
 ### attach
 
