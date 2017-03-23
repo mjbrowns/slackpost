@@ -37,6 +37,8 @@ var sendCmd = &cobra.Command{
 		ReadMessageFile(&msg,MessageFile)
 		DumpMessage(msg)
 		SlackSend(&msg)
+		Log(fmt.Sprintf("Deleting Message ID: %s (%s)",MessageID,MessageFile))
+		RemoveFile(MessageFile)
 	},
 }
 
