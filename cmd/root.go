@@ -38,7 +38,9 @@ var WorkPrefix string
 var RootCmd = &cobra.Command{
 	Use:   ProgName,
 	Short: "Post a message to a slack channel",
-	Long: `Sends a message to a slack channel by constructing a mesage object
+	Long: `Post a message to a slack channel
+
+	Sends a message to a slack channel by constructing a mesage object
 	containing all available slack API capabilities`,
 // Uncomment the following line if your bare application
 // has an action associated with it:
