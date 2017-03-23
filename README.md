@@ -40,7 +40,8 @@ a message object containing all availabl slack incoming webhook API capabilities
 
 Initializes the message object
 
-####Usage:
+#### Usage
+
 **slackpost init \<webhook> \<message> [flags]**
 
 #### Arguments
@@ -107,6 +108,8 @@ Attach a text string to the message.
 slackpost attach "$(<logfile.txt)" -c "#abcdef" -a "yourname"
 ```
 
+---
+
 ### addfield
 
 Add fields to the current attachment.
@@ -136,6 +139,8 @@ Add fields to the current attachment.
 slackpost addfield AssignedTo "Jane Doe"
 ```
 
+---
+
 ### send
 
 Sends the constructed message to the slack channel
@@ -143,6 +148,8 @@ Sends the constructed message to the slack channel
 #### Usage
 
 **slackpost send [flags]**
+
+---
 
 ### clean
 
