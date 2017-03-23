@@ -8,9 +8,11 @@ This utility, written in go, sends a message to a slack channel by constructing
 a message object containing all availabl slack incoming webhook API capabilities
 
 ## Usage
+
 **slackpost [options] [command] [arguments]**
 
 ####Available Commands:
+
 | Command | Description |
 | --------- | ------- |
 |  addfield |   Add fields to the current attachment|
@@ -46,6 +48,7 @@ Initializes the message object
 |  message |  Message to send |
 
 ####Flags
+
 | Short | Long | Description |
 | - | - | - |
 |  -c| --channel |  Name of channel to send to (ignored if passing a channel hook)|
@@ -68,14 +71,17 @@ Attach a text string to the message.
 
 
 ####Usage:
+
 **slackpost attach \<text> [flags]**
 
 ####Arguments
+
 | Name | Value |
 | --------- | ------- |
 |  text | string message to attach |
 
 ####Flags
+
 | Short | Long | Description |
 | - | - | - |
 |  -a| --author |      Name of author
@@ -105,14 +111,18 @@ Add fields to the current attachment.
   This function adds a few field to the most recently added attachment.
 ```
 ####Usage
+
 **slackpost addfield \<title> \<value> [flags]**
 
 ####Arguments
+
 | Name | Value |
 | --------- | ------- |
 | title | Title string associated with this field |
 | value | Value string associated with this field |
+
 ####Flags
+
 | Short | Long | Description |
 | - | - | - |
 | -s | `--short` | If set, indicates that the title/value pair is short enough to be displayed vertically with other fields |
@@ -127,7 +137,8 @@ slackpost addfield AssignedTo "Jane Doe"
 Sends the constructed message to the slack channel
 
 Usage:
-  slackpost send [flags]
+
+**slackpost send [flags]**
 
 ### clean
 
@@ -137,14 +148,12 @@ Cleans up the temporary file(s) used to create the message object.
 	but in some cases you may need to clean up the message manually.
 
 Usage:
-  slackpost clean [flags]
 
-Flags:
-  -a, --all     If set, will clean up any detected messages
-      --force   When using -a|--all this is required to actually delete files
+**slackpost clean [flags]**
 
-Global Flags:
-      --config string       config file (default is $HOME/.slackpost.json)
-  -m, --message-id string   message id number.  Can be anything.  Defaults to PID of caller
-  -v, --verbose             Enable verbose messages
-  -w, --workdir string      working directory to use to store message objects
+####Flags
+
+| Short | Long | Description |
+| - | - | - |
+|  -a | --all | If set, will clean up any detected messages| 
+| | --force |  When using -a|--all this is required to actually delete files|
