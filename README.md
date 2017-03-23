@@ -11,7 +11,7 @@ a message object containing all availabl slack incoming webhook API capabilities
 
 **slackpost [options] [command] [arguments]**
 
-####Available Commands:
+#### Available Commands:
 
 | Command | Description |
 | --------- | ------- |
@@ -23,7 +23,7 @@ a message object containing all availabl slack incoming webhook API capabilities
 |  send    |   Sends the message|
 |  version |    Show version|
 
-####Global Flags
+#### Global Flags
 
 *Global flags are usable with any subcommand*
 
@@ -41,13 +41,13 @@ Initializes the message object
 ####Usage:
 **slackpost init \<webhook> \<message> [flags]**
 
-####Arguments
+#### Arguments
 | Name | Value |
 | --------- | ------- |
 |  webhook  | URL of slack channel incoming webook |
 |  message |  Message to send |
 
-####Flags
+#### Flags
 
 | Short | Long | Description |
 | - | - | - |
@@ -56,7 +56,7 @@ Initializes the message object
 |  -I| --icon-url | URL of Icon to post with the message|
 |  -u| --username | User Name to associate with the message|
 
-####Example:
+#### Example:
 ```
   slackpost init https://slack.foo "This is my message"
 ```
@@ -70,17 +70,17 @@ Attach a text string to the message.
 	options available to customize how the attachment will appear.
 
 
-####Usage:
+#### Usage:
 
 **slackpost attach \<text> [flags]**
 
-####Arguments
+#### Arguments
 
 | Name | Value |
 | --------- | ------- |
 |  text | string message to attach |
 
-####Flags
+#### Flags
 
 | Short | Long | Description |
 | - | - | - |
@@ -98,7 +98,7 @@ Attach a text string to the message.
 |  -t | --title | String to display as the title of the attachment.  Displays as larger, bolder text|
 |  -T | --title-link | URL to hyperlink to the attachment title.|
 
-####Example:
+#### Example:
 ```
 slackpost attach "$(<logfile.txt)" -c "#abcdef" -a "yourname"
 ```
@@ -110,24 +110,24 @@ Add fields to the current attachment.
   Message atachments can have multiple fields (see slack message documentation).
   This function adds a few field to the most recently added attachment.
 ```
-####Usage
+#### Usage
 
 **slackpost addfield \<title> \<value> [flags]**
 
-####Arguments
+#### Arguments
 
 | Name | Value |
 | --------- | ------- |
 | title | Title string associated with this field |
 | value | Value string associated with this field |
 
-####Flags
+#### Flags
 
 | Short | Long | Description |
 | - | - | - |
 | -s | `--short` | If set, indicates that the title/value pair is short enough to be displayed vertically with other fields |
 
-####Example
+#### Example
 ```
 slackpost addfield AssignedTo "Jane Doe"
 ```
@@ -136,7 +136,7 @@ slackpost addfield AssignedTo "Jane Doe"
 
 Sends the constructed message to the slack channel
 
-Usage:
+#### Usage
 
 **slackpost send [flags]**
 
@@ -147,11 +147,11 @@ Cleans up the temporary file(s) used to create the message object.
 	This function is normally performed automatically after sending the object,
 	but in some cases you may need to clean up the message manually.
 
-Usage:
+#### Usage
 
 **slackpost clean [flags]**
 
-####Flags
+#### Flags
 
 | Short | Long | Description |
 | - | - | - |
