@@ -23,23 +23,23 @@ package cmd
 import (
 	"fmt"
 	"os"
-
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
 
 var cfgFile string
+var MessageID string
+var Verbose bool
+var WorkDir string
+var MessageFile string
+var WorkPrefix string
 
 // RootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
-	Use:   "slackpost",
-	Short: "A brief description of your application",
-	Long: `A longer description that spans multiple lines and likely contains
-examples and usage of using your application. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Use:   ProgName,
+	Short: "Post a message to a slack channel",
+	Long: `Sends a message to a slack channel by constructing a mesage object
+	containing all available slack API capabilities`,
 // Uncomment the following line if your bare application
 // has an action associated with it:
 //	Run: func(cmd *cobra.Command, args []string) { },
@@ -48,10 +48,8 @@ to quickly create a Cobra application.`,
 // Execute adds all child commands to the root command sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
-	if err := RootCmd.Execute(); err != nil {
-		fmt.Println(err)
-		os.Exit(-1)
-	}
+	err := RootCmd.Execute()
+  Check(err,"Error running root command")
 }
 
 func init() {
@@ -61,24 +59,39 @@ func init() {
 	// Cobra supports Persistent Flags, which, if defined here,
 	// will be global for your application.
 
-	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.slackpost.yaml)")
+	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", fmt.Sprintf("config file (default is $HOME/.%s.json)",ProgName))
+	RootCmd.PersistentFlags().StringVarP(&MessageID,"message-id","m","","message id number.  Can be anything.  Defaults to PID of caller")
+	RootCmd.PersistentFlags().BoolVarP(&Verbose,"verbose","v",false,"Enable verbose messages")
+	RootCmd.PersistentFlags().StringVarP(&WorkDir,"workdir","w",WorkDir,"working directory to use to store message objects")
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
-	RootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
 
 // initConfig reads in config file and ENV variables if set.
 func initConfig() {
+	Log("\nStarting function root")
 	if cfgFile != "" { // enable ability to specify config file via flag
 		viper.SetConfigFile(cfgFile)
 	}
-
-	viper.SetConfigName(".slackpost") // name of config file (without extension)
+	viper.SetConfigName(fmt.Sprintf(".%s",ProgName)) // name of config file (without extension)
 	viper.AddConfigPath("$HOME")  // adding home directory as first search path
+	viper.SetEnvPrefix("SLACKPOST")
 	viper.AutomaticEnv()          // read in environment variables that match
-
+	viper.SetDefault("workdir","/tmp")
+	viper.SetDefault("workprefix",fmt.Sprintf("%s_",ProgName))
 	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err == nil {
-		fmt.Println("Using config file:", viper.ConfigFileUsed())
+		if Verbose { fmt.Println("Using config file:", viper.ConfigFileUsed()) }
 	}
+	if WorkDir == "" { WorkDir = viper.GetString("workdir")	}
+	WorkPrefix = viper.GetString("workprefix")
+	if MessageID == "" { MessageID = viper.GetString("id") }
+	if MessageID == "" { MessageID = fmt.Sprintf("%d",os.Getppid())	}
+	found,err := PathExists(WorkDir)
+	Check(err,fmt.Sprintf("Couldn't stat %s\n",WorkDir))
+	if ! found { Die(fmt.Sprintf("ERROR: WorkDir %s does not exist!",WorkDir)) }
+	MessageFile=fmt.Sprintf("%s/%s%s",WorkDir,WorkPrefix,MessageID)
+	Log(fmt.Sprintf("Using WorkDir: %s",WorkDir))
+	Log(fmt.Sprintf("Using Message-ID: %s",MessageID))
+	Log(fmt.Sprintf("Using MessageFile: %s",MessageFile))
 }
