@@ -5,7 +5,18 @@ A highly portable utility to post a message to a slack channel.
 ## Synopsis
 
 This utility, written in go, sends a message to a slack channel by constructing
-a message object containing all availabl slack incoming webhook API capabilities
+a message object containing all available slack incoming webhook API capabilities
+
+## Quick Start
+
+```
+slackpost https://slack.com/your-webhook "This is my message"
+slackpost send
+```
+
+### Portability issue
+
+The default workdir is /tmp and the default message-id is the parent pid.  This works great on linux but not on Windows.  On Windows, manually specify these with the -m and -w flags
 
 ## Usage
 
