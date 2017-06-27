@@ -120,12 +120,15 @@ func DumpFields(f slackAttachmentFields) {
 func SlackSend(msg *slackMessage) {
 	params, _ := json.Marshal(msg.Payload)
 
-	resp, _ := http.PostForm(
+	resp, err := http.PostForm(
 		msg.Hook,
 		url.Values{"payload": {string(params)}},
 	)
+  Check(err,"Unexpected Error from http.PostForm")
 
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, err := ioutil.ReadAll(resp.Body)
+  Check(err,"Unexpected Error from http.PostForm")
+
 	defer resp.Body.Close()
   if string(body) != "ok" {Die(fmt.Sprintf("Error: Slack post returned error: %s",string(body)))}
 	return
